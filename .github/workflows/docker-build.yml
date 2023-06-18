@@ -31,6 +31,12 @@ jobs:
       - name: Build and push Docker image (arm64)
         run: |
           docker buildx build --platform linux/arm64 --push -t bebrovich/zad2docker:arm64-latest .
+      
+      - name: Snyk
+        uses: snyk/actions/docker@master
+        with:
+          image: ${{ github.repository }}:${{ github.sha }}
+  
         env:
           DOCKER_BUILDKIT: 1
           DOCKER_CLI_EXPERIMENTAL: enabled
